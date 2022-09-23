@@ -26,7 +26,8 @@
 - `const` => value can NOT be updated and can NOT be re-declared with same name; `block scoped`
 
 - naming conventions and restrictions
-  ![](/slides/03_variable-naming.png)
+
+![](/slides/03_variable-naming.png)
 
 ## Operators
 
@@ -47,3 +48,69 @@
 ![](/slides/07.2_how-to-import-javascript-in-a-webpage.png)
 
 ![](/slides/07.3_timeline-execution-summary.png)
+
+## Boolean Operators
+
+- equality operators
+
+![](/slides/08_boolean-operators.png)
+
+## String Comparison
+
+- JavaScript compares strings based on standard lexicographical ordering, using Unicode values
+- JavaScript looks at first character and only considers other characters if the first character is similar
+- capital characters are considered to be smaller than lowercase
+
+```JavaScript
+  'ab' > 'aa' // true
+  'a' > 'B' // true
+  'a' > 'b' // false
+```
+
+## Combining Conditions
+
+- `&&`, `||`
+
+![](/slides/09_combining-conditions.png)
+
+## Falsy & Truthy Values
+
+![](/slides/10.1_falsy-truthy-values.png)
+
+![](/slides/10.2_falsy-truthy-values.png)
+
+## Conditional Expressions / Ternary Operator
+
+![](/slides/11_ternary-operator.png)
+
+## Expression vs. Statement in JavaScript
+
+- an expression is a bit of JavaScript code that produces a value
+
+```JavaScript
+  1 → produces 1
+  "hello" → produces "hello"
+  5 \* 10 → produces 50
+  num > 100 → produces either true or false
+  isHappy ? "🙂" : "🙁" → produces an emoji
+  [1, 2, 3].pop() → produces the number 3
+```
+
+- a JavaScript program is a sequence of statements. Each statement is an instruction for the computer to do something.
+
+```JavaScript
+let hi = 5;
+
+if (hi > 10) {
+  // More statements here
+}
+
+throw new Error('Something exploded!');
+```
+
+- a chunk of JS is an expression, if you can use `console.log(/* chunk of JavaScript */)`
+- it's a statement (or, possibly, invalid JS), if `console.log()` returns an error
+
+## Logical Operator Shorthands an handy Use Cases
+
+![](/slides/12_logical-operators-shorthands.png)

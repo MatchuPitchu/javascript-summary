@@ -50,6 +50,10 @@ const goExitFullscreen = () => {
   }
 };
 
+// Prompt window in browser with prompt built-in function
+const value = prompt('Insert your wished value.', 'test'); // "test": default value
+console.log(value); // "test" or user input
+
 // Get the type of data
 const getType = (value) => {
   const match = Object.prototype.toString.call(value).match(/ (\w+)]/);
@@ -100,9 +104,7 @@ const deepCopy = (obj, hash = new WeakMap()) => {
 
 // Determining the type of device
 const isMobile = () => {
-  return !!navigator.userAgent.match(
-    /(iPhone|iPod|Android|ios|iOS|iPad|Blackberry|WebOS|Symbian|Windows Phone|Phone)/i
-  );
+  return !!navigator.userAgent.match(/(iPhone|iPod|Android|ios|iOS|iPad|Blackberry|WebOS|Windows Phone|Phone)/i);
 };
 
 // Determine if the device is Android or IOS
