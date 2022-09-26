@@ -114,3 +114,43 @@ throw new Error('Something exploded!');
 ## Logical Operator Shorthands an handy Use Cases
 
 ![](/slides/12_logical-operators-shorthands.png)
+
+## Loops
+
+- `for`, `for ... of`, `for ... in`, `while`
+
+![](/slides/13_loops.png)
+
+- `break`: stops execution of loop
+
+```TypeScript
+for (let i = 0; i < 3; i++) {
+  if (i === 2) {
+    break;
+  }
+}
+```
+
+- `continue`: stops only execution of current round of loop
+
+```TypeScript
+for (let i = 0; i < 3; i++) {
+  if (i === 2) {
+    continue;
+  }
+}
+```
+
+- `labeled statement`: alias for loops
+  - if you have e.g. an inner and an outer loop, you can stop execution of outer loop (-> whole loop) in the inner loop
+  - works also if e.g. an infinite loop is labeled at another place in your code
+
+```TypeScript
+outerLoop: for (let i = 0; i < 3; i++) {
+  innerLoop: for (let j = 0; j < 3; i++) {
+    if (j === 2) {
+      break outerLoop;
+    }
+  }
+}
+```
