@@ -13,6 +13,10 @@
 
 ![](/slides/01_how-javascript-is-executed.png)
 
+- how JavaScript engines are working in general in browsers
+
+![](/slides/14_javascript-engines-work-flow.png)
+
 ## Overview of the JavaScript History
 
 ![](/slides/02_overview-history-javascript.png)
