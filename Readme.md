@@ -17,6 +17,10 @@
 
 ![](/slides/14_javascript-engines-work-flow.png)
 
+- how code gets executed in JavaScript
+
+![](/slides/15_javascript-engine-code-execution.png)
+
 ## Overview of the JavaScript History
 
 ![](/slides/02_overview-history-javascript.png)
@@ -32,6 +36,14 @@
 - naming conventions and restrictions
 
 ![](/slides/03_variable-naming.png)
+
+## Primitive vs Reference Values
+
+![](/slides/16_primitive-vs-reference-values.png)
+
+## Garbage Collection
+
+![](/slides/17_garbage-collection.png)
 
 ## Operators
 
