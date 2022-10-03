@@ -1,3 +1,7 @@
+// Logging
+console.log(); // prints a stringified representation of the argument passed in
+console.dir(); // prints out a navigable tree (a full representation of an object)
+
 // Scroll to the top of the page
 const scrollToTop = () => {
   window.scrollTo({

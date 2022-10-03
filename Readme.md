@@ -170,3 +170,9 @@ outerLoop: for (let i = 0; i < 3; i++) {
   }
 }
 ```
+
+## Functions
+
+- difference between `function declaration / function statement` and `function expression`
+
+![](/slides/18_function-declaration-vs-expression.png)
