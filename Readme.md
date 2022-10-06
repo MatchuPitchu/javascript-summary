@@ -176,3 +176,14 @@ outerLoop: for (let i = 0; i < 3; i++) {
 - difference between `function declaration / function statement` and `function expression`
 
 ![](/slides/18_function-declaration-vs-expression.png)
+
+## Document and Windows Object
+
+![](/slides/19_document-and-window.png)
+
+- global `window` object provides build-in browser methods like `alert()`, `setTimeout()` etc. -> you don't need to write `window.alert()` to call them
+- event the `document` object is a part of the `window` object
+
+## Document Object Model (DOM)
+
+![](/slides/20_document-object-model-dom.png)
