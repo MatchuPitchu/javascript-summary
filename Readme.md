@@ -101,6 +101,21 @@ arr.findIndex(); // same as above, but returns found index
 
 arr.includes(ITEM_VALUE) // returns boolean value
 
+const newArr = arr.map((item, index?, fullArray?) => {
+  // ... logic
+  return newItem;
+}) // transforms items of array, returns new array, does NOT mutate original array
+
+const sortedArr = [10, 1, 5].sort((a, b) => {
+  if(a > b) return 1; // a must be after b (-> a +1 position)
+  if (a < b) return -1; // a must be before b (-> a -1 position)
+  return 0; // no change
+})
+
+const filteredArr = [1, 2].filter((item, index?, fullArray?) => item === 1); // return true means, that item is kept (-> filtered out in new array), false means opposite
+
+const total = [1, 5, 10].reduce((accumulator, currentValue, currentIndex?, fullArray?) => accumulator + currentIndex, 0); // reduces values of array items to another new value or wished construct
+
 ```
 
 ## Importing JavaScript to a Webpage
