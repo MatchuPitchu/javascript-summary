@@ -420,3 +420,11 @@ for (const value of personData.values()) {
   - similar idea with `garbage collection` as for `WeakSet`
   - created with `new WeakMap()`
   - only provides methods `get`, `has`, `delete`, `set`
+
+## Objects
+
+- `objects` are made up of `properties` and `methods`
+  - store data in properties and actions in methods
+  - all `reference` values are in the end `objects`, BUT objects consists in the end, sometimes deep nested of primitive values
+- `object literal`: `{...}`
+- remove object property: `delete objectName.property`
