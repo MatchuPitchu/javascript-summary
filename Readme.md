@@ -55,69 +55,6 @@
 
 ![](/slides/06_null-undefined-NaN.png)
 
-## Arrays and Iterables
-
-- `Iterable`: is an object that implements the `iterable protocol` and have a `@@iterator` method (i.e. `Symbol.iterator`)
-
-  - Iterables: `Array`, `NodeList`, `String`, `Map`, `Set`
-
-- `Array-like Object`: is an object with a `length` property and use an `index` to access items
-
-  - Array-like objects: `NodeList`, `String`
-
-### Creating Arrays
-
-```TypeScript
-const arr1 = [1, 2];
-
-const arr2 = Array.from('Hi') // ['H', 'i'] -> transforms an iterable into an array
-
-// rarely used
-const arr3 = new Array(1, 2) // notice: new Array(5) -> empty array with length 5
-
-const arr4 = Array.of(1, 2);
-```
-
-### Useful Methods of Arrays
-
-```TypeScript
-arr.push(); // adds item at the end
-arr.pop(); // removes item at the end
-
-arr.unshift(); // adds item at the beginning and moves all items one index higher
-arr.shift(); // removes item at the beginning and moves all items one index lower
-
-arr.splice(START_INDEX, NUMBER_OF_ITEMS_TO_DELETE?, ...ITEMS_TO_INSERT?); // returns removed items
-
-arr.slice(START_INDEX, END_INDEX?) // returns new shallow copy of array, end index not included
-
-arr.concat(ARRAY[]) // merges two or more arrays; does NOT change existing arrays, but instead returns a new array
-
-arr.indexOf(ITEM_VALUE, START_INDEX?) // returns first index where the passed value is found in an array
-arr.lastIndexOf(ITEM_VALUE) // same as above, but starts searching in array from the end
-
-arr.find((item, index?, fullArray?) => item === 'test'); // returns first matching item (i.e. return is true)
-arr.findIndex(); // same as above, but returns found index
-
-arr.includes(ITEM_VALUE) // returns boolean value
-
-const newArr = arr.map((item, index?, fullArray?) => {
-  // ... logic
-  return newItem;
-}) // transforms items of array, returns new array, does NOT mutate original array
-
-const sortedArr = [10, 1, 5].sort((a, b) => {
-  if(a > b) return 1; // a must be after b (-> a +1 position)
-  if (a < b) return -1; // a must be before b (-> a -1 position)
-  return 0; // no change
-})
-
-const filteredArr = [1, 2].filter((item, index?, fullArray?) => item === 1); // return true means, that item is kept (-> filtered out in new array), false means opposite
-
-const total = [1, 5, 10].reduce((accumulator, currentValue, currentIndex?, fullArray?) => accumulator + currentIndex, 0); // reduces values of array items to another new value or wished construct
-
-```
-
 ## Importing JavaScript to a Webpage
 
 - `script` element, `async`/`defer`, timeline of execution while loading the page
@@ -319,3 +256,96 @@ outerLoop: for (let i = 0; i < 3; i++) {
 - `Node.appendChild(CREATED_OR_EXISTING_ELEMENT)`: adds node to end of list of children of a specified parent node. If given child is a reference to an existing node in the document, `appendChild()` moves it from its current position to the new position (-> since you are holding only a reference to the element object).
 - `Element.append()` / `Element.prepend()`: inserts a set of Node objects or string objects a) after the last child OR b) before the first child of the Element. String objects are inserted as equivalent Text nodes.
 - `Node.cloneNode(deep)`: returns a duplicate of the node on which this method was called. `deep` controls if the subtree contained in a node is also cloned (-> `true`) or not (-> `false`).
+
+## Arrays and Iterables
+
+- `Iterable`: is an object that implements the `iterable protocol` and have a `@@iterator` method (i.e. `Symbol.iterator`)
+
+  - Iterables: `Array`, `NodeList`, `String`, `Map`, `Set`
+
+- `Array-like Object`: is an object with a `length` property and use an `index` to access items
+
+  - Array-like objects: `NodeList`, `String`
+
+### Creating Arrays
+
+```TypeScript
+const arr1 = [1, 2];
+
+const arr2 = Array.from('Hi') // ['H', 'i'] -> transforms an iterable into an array
+
+// rarely used
+const arr3 = new Array(1, 2) // notice: new Array(5) -> empty array with length 5
+
+const arr4 = Array.of(1, 2);
+```
+
+### Useful Methods of Arrays
+
+```TypeScript
+arr.push(); // adds item at the end
+arr.pop(); // removes item at the end
+
+arr.unshift(); // adds item at the beginning and moves all items one index higher
+arr.shift(); // removes item at the beginning and moves all items one index lower
+
+arr.splice(START_INDEX, NUMBER_OF_ITEMS_TO_DELETE?, ...ITEMS_TO_INSERT?); // returns removed items
+
+arr.slice(START_INDEX, END_INDEX?) // returns new shallow copy of array, end index not included
+
+arr.concat(ARRAY[]) // merges two or more arrays; does NOT change existing arrays, but instead returns a new array
+
+arr.indexOf(ITEM_VALUE, START_INDEX?) // returns first index where the passed value is found in an array
+arr.lastIndexOf(ITEM_VALUE) // same as above, but starts searching in array from the end
+
+arr.find((item, index?, fullArray?) => item === 'test'); // returns first matching item (i.e. return is true)
+arr.findIndex(); // same as above, but returns found index
+
+arr.includes(ITEM_VALUE) // returns boolean value
+
+const newArr = arr.map((item, index?, fullArray?) => {
+  // ... logic
+  return newItem;
+}) // transforms items of array, returns new array, does NOT mutate original array
+
+const sortedArr = [10, 1, 5].sort((a, b) => {
+  if(a > b) return 1; // a must be after b (-> a +1 position)
+  if (a < b) return -1; // a must be before b (-> a -1 position)
+  return 0; // no change
+})
+
+const filteredArr = [1, 2].filter((item, index?, fullArray?) => item === 1); // return true means, that item is kept (-> filtered out in new array), false means opposite
+
+const total = [1, 5, 10].reduce((accumulator, currentValue, currentIndex?, fullArray?) => accumulator + currentIndex, 0); // reduces values of array items to another new value or wished construct
+
+const data = ['test;10']
+const splitData = data.split(";"); // ['test', '10']
+
+const arr = ['hello', 'world'];
+const joinedString = arr.join(' '); // 'hello world'
+```
+
+## Spread Operator
+
+```TypeScript
+const arr = [10, 2, 5, 4];
+const copiedArr = [...arr]; // creates new shallow (!) copy
+
+const minNumber = Math.min(...arr) // returns min number of spread array
+
+const arrOfObjects = [{age: 10}, {age: 20}];
+const copiedArrOfObjects = [...arrOfObjects];
+arrOfObjects[0].age = 15 // change occurs in both arrays since only reference addresses to objects are spread into copied array, so there are the same
+
+const copiedArrOfObjects2 = arrOfObjects.map((obj) => ({ age: obj.age })); // way to create really new copy of objects in item, map method returns new array with new object for each item in array
+```
+
+## Destructuring
+
+- destructuring assignment syntax is a JavaScript expression that makes it possible to unpack values from arrays, or properties from objects, into distinct variables.
+- for `arrays`: data is pulled out in the order of array
+
+```TypeScript
+const arr = ['Matchu', 'Pitchu', 'hello', 'world'];
+const [firstName, lastName, ...restData] = arr; // use rest operator to bundle the remaining items of array
+```
