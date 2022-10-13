@@ -328,6 +328,7 @@ const joinedString = arr.join(' '); // 'hello world'
 ## Spread Operator
 
 ```TypeScript
+// Arrays
 const arr = [10, 2, 5, 4];
 const copiedArr = [...arr]; // creates new shallow (!) copy
 
@@ -338,6 +339,17 @@ const copiedArrOfObjects = [...arrOfObjects];
 arrOfObjects[0].age = 15 // change occurs in both arrays since only reference addresses to objects are spread into copied array, so there are the same
 
 const copiedArrOfObjects2 = arrOfObjects.map((obj) => ({ age: obj.age })); // way to create really new copy of objects in item, map method returns new array with new object for each item in array
+```
+
+```TypeScript
+// Objects
+const obj = {
+  name: 'Matchu',
+  age: 20,
+  hobbies: ['piano', 'coding'],
+};
+
+const copiedObj = { ...person, age: 30, hobbies: [...obj.hobbies] }; // 'age: 30' overwrites spread age value, [...obj.hobbies] creates a new copy of nested array
 ```
 
 ## Destructuring
@@ -428,3 +440,39 @@ for (const value of personData.values()) {
   - all `reference` values are in the end `objects`, BUT objects consists in the end, sometimes deep nested of primitive values
 - `object literal`: `{...}`
 - remove object property: `delete objectName.property`
+- dynamic properties:
+
+  - accessing properties with a variable
+
+    ```TypeScript
+    const propertyName = 'name';
+    objectName[propertyName];
+    ```
+
+  - defining properties with a variable
+
+    ```TypeScript
+    const propertyName = 'name';
+    const objectName = {
+      [propertyName]: 'Matchu',
+    }
+    ```
+
+- create new object: `Object.assign()` -> better way is spread operator
+
+  ```TypeScript
+  const person = {
+    name: 'Matchu',
+    age: 20,
+  };
+
+  Object.assign({}, person); // merge person object properties into first argument
+  ```
+
+- check if property exists in object with `in` operator
+
+  ```TypeScript
+  if ('name' in personObj) {
+    // ...
+  }
+  ```
