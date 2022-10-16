@@ -1,6 +1,6 @@
 # Object-oriented Programming (OOP)
 
-- `classes` and `instances` of classes
+## Classes and Instances of Classes
 
 ![](/slides/27_classes-instances.png)
 
@@ -40,7 +40,7 @@ const productList = new ProductList();
 productList.render();
 ```
 
-- `class fields` and `properties`
+## Class Fields and Properties
 
 ![](/slides/28_class-fields-and-properties.png)
 
@@ -68,7 +68,7 @@ class App {
 App.init();
 ```
 
-- `inheritance`
+## Inheritance
 
 ![](/slides/29_class-inheritance.png)
 
@@ -106,4 +106,40 @@ class Cart extends Component {
 };
 
 new Cart('app');
+```
+
+## Private Fields, Properties and Methods
+
+- `public`
+
+  - accessible `outside` of the class/object
+  - example: `product.buy()`
+
+- `private`
+
+  - accessible only `inside` of the class/object
+  - you work with this in your class (to split and re-use code)
+  - example: hard-coded (fallback) values, re-used class-specific logic
+
+  ```TypeScript
+  class ProductList {
+    // hash (#) sets property or method to private
+    #products = [];
+    // ...
+  }
+  ```
+
+- addition of private fields and properties is relatively new; you might find many scripts that use a common convention -> prefix private properties with an underscore (`_`) to signal that they should not be accessed from outside of the object
+
+```TypeScript
+class User {
+  constructor() {
+    this._role = 'admin';
+  }
+}
+
+// or directly in an object
+const product = {
+  _internalId: 'abc1'
+};
 ```

@@ -129,3 +129,48 @@ const newMovie = {
 newMovie.info.title = 'Test Title'; // calls setter function
 console.log(newMovie.info.title); // calls getter function
 ```
+
+## The "instanceof" Operator
+
+```TypeScript
+// [1] Example: check if object is based on certain class
+class Person {
+  name = 'Matchu';
+}
+
+const person = new Person();
+
+if (person instanceof Person) {
+  // ...
+}
+
+// [2] Example: check if DOM element is of certain type
+const button = document.querySelector('button');
+if(button instanceof HTMLButtonElement) {
+  // ...
+}
+```
+
+## Object Descriptors
+
+- <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty>
+
+```TypeScript
+const person = {
+  name: 'Matchu',
+  greet() {
+    console.log(this.name)
+  }
+}
+
+// returns new object with information about the properties and methods of a specific object: e.g. "configurable", "enumberable", "writable", "value"
+Object.getOwnPropertyDescriptors(person);
+
+// change property definition
+Object.defineProperty(person, 'name', {
+  configurable: true, // defines if you can delete or not and other things
+  enumerable: true, // defines if appears in loops
+  value: person.name,
+  writable: false, // no re-write possible AND no Error thrown if re-write is tried
+})
+```
