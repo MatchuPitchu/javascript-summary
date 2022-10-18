@@ -70,3 +70,55 @@
 - `Node.appendChild(CREATED_OR_EXISTING_ELEMENT)`: adds node to end of list of children of a specified parent node. If given child is a reference to an existing node in the document, `appendChild()` moves it from its current position to the new position (-> since you are holding only a reference to the element object).
 - `Element.append()` / `Element.prepend()`: inserts a set of Node objects or string objects a) after the last child OR b) before the first child of the Element. String objects are inserted as equivalent Text nodes.
 - `Node.cloneNode(deep)`: returns a duplicate of the node on which this method was called. `deep` controls if the subtree contained in a node is also cloned (-> `true`) or not (-> `false`).
+
+## Attaching Data to DOM elements
+
+- use `data-...` attributes to attach data to a DOM element
+- to get or set data of DOM element use `dataset` property of DOM element
+  - [1] name is converted to camel case
+  - [2]
+
+```TypeScript
+// HTML: <div id='test' data-test-info="foo"></div>
+
+const el = document.getElementById('test');
+// get data
+const { testInfo } = el.dataset; // "foo"
+
+// set data
+el.dataset.someInfo = "bar"
+
+// New HTML: <div id='test' data-test-info="foo" data-some-info="bar"></div>
+```
+
+## Getting Element Box Dimensions
+
+```TypeScript
+// HTML: <div id='test' data-test-info="foo"></div>
+
+const positionObj = el.getBoundingClientRect(); // returns object with position data
+const { bottom, top, height, width, left, right, x, y } = positionObj;
+
+el.offsetTop; // outer space between end of box to top of document
+
+el.clientTop; // space of border and scrollbar
+
+el.clientWidth; // space of box without border and scrollbar
+
+el.offsetHeight; // visible height of box
+
+el.scrollHeight; // entire height of box including space than can be reached by scrolling
+
+el.scrollTop; // space to top of box content at the current scroll position
+
+window.innerWidth // current browser width including scrollbar
+document.documentElement.clientWidth; // current browser WITHOUT scrollbar
+```
+
+![](/slides/34_element-position-and-sizes.png)
+
+## DOM Elements and Inheritance
+
+- Example below: every `HTMLInputElement` has access to all properties of `HTMLElement`, `Element`, `Node` and `EventTarget` (-> prototype chain) and its own properties that are specific to `HTMLInputElement`
+
+![](/slides/35_DOM-elements-inheritance-example.png)
