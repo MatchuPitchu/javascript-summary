@@ -113,6 +113,11 @@ el.scrollTop; // space to top of box content at the current scroll position
 
 window.innerWidth // current browser width including scrollbar
 document.documentElement.clientWidth; // current browser WITHOUT scrollbar
+
+el.scrollTo(x, y); // scroll to certain position
+el.scrollTo({ top: x, behavior: 'smooth' }); // scroll to certain position with smooth transition
+el.scrollBy(x, y); // if called multiple times, continues to scroll with defined values
+el.scrollIntoView({ behavior: 'smooth' }); // scroll element into view with smooth transition
 ```
 
 ![](/slides/34_element-position-and-sizes.png)
@@ -122,3 +127,37 @@ document.documentElement.clientWidth; // current browser WITHOUT scrollbar
 - Example below: every `HTMLInputElement` has access to all properties of `HTMLElement`, `Element`, `Node` and `EventTarget` (-> prototype chain) and its own properties that are specific to `HTMLInputElement`
 
 ![](/slides/35_DOM-elements-inheritance-example.png)
+
+## Using HTML Template Element
+
+- `<template>` can hold some content that will be hidden when the page loads
+- use JavaScript to pull content out and display it where you like
+
+```HTML
+<template id="foo">
+  <h2>Hello</h2>
+</template>
+```
+
+```TypeScript
+const el = document.getElementById('foo');
+const elBody = document.importNode(el.content, true); // do a deep (-> true) import of all the content of the element
+body.append(elBody);
+```
+
+## Loading Scripts Dynamically
+
+- use case: you have a script file that you want to be loaded only at a certain time
+
+```TypeScript
+const someScript = document.createElement('script');
+someScript.textContent = 'alert("foo");';
+document.head.append(someScript);
+
+const startAnalytics = () => {
+  const analyticsScript = document.createElement('script');
+  analyticsScript.src = 'assets/scripts/analytics.js', // OR URL path
+  analyticsScript.defer = true;
+  document.head.append(analyticsScript); // is directly loaded when appended
+};
+```

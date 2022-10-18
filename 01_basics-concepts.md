@@ -220,3 +220,15 @@ const copiedObj = { ...person, age: 30, hobbies: [...obj.hobbies] }; // 'age: 30
 const arr = ['Matchu', 'Pitchu', 'hello', 'world'];
 const [firstName, lastName, ...restData] = arr; // use rest operator to bundle the remaining items of array
 ```
+
+## Error Object
+
+```TypeScript
+// throw a new error object (notice: you can throw everything, e.g. throw 'foo')
+throw new Error('Error message'); // allows to see the stack trace in  the console
+
+const error = new Error('Error message');
+error.code = 404; // add error code to object
+console.log(error); // prints directly the error message with stack trace
+console.dir(error); // prints error object
+```
