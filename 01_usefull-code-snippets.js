@@ -27,6 +27,23 @@ const smoothScroll = (element) => {
   });
 };
 
+// Infinite Scrolling: Basic Example
+let number = 0;
+
+const scrollHandler = () => {
+  const distanceToBottom = document.body.getBoundingClientRect().bottom;
+  const heightOfVisibleContent = document.documentElement.clientHeight;
+
+  if (distanceToBottom < heightOfVisibleContent + 150) {
+    const newElement = document.createElement('div');
+    number++;
+    newElement.innerHTML = `<p>Element ${number}</p>`;
+    document.body.append(newElement);
+  }
+};
+
+window.addEventListener('scroll', scrollHandler);
+
 // Display the element in fullscreen mode
 const goToFullScreen = (element) => {
   element = element || document.body;
