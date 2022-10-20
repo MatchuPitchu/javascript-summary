@@ -1,38 +1,19 @@
 :root {
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
   font-size: 16px;
-  line-height: 24px;
   font-weight: 400;
-
-  color-scheme: light dark;
+  line-height: 24px;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+}
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+* {
+  margin: 0;
 }
 
 body {
-  margin: 0;
+  min-height: 100vh;
   display: flex;
   place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
 }
 
 /* (A) LIST STYLES */
@@ -40,18 +21,51 @@ ul {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+
   list-style: none;
-  padding: 2rem;
-  margin: 0;
+  padding: 0;
+  margin: 0 auto;
 }
 
 li {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   height: 4rem;
-  background-color: #646cff80;
+  width: 250px;
+  background-color: orange;
   border: 1px solid #4a4a4a;
+  cursor: move;
+  transition: all 0.2s;
+  user-select: none;
+  overflow: hidden;
+}
+
+li::after {
+  content: 'drag me';
+  position: absolute;
+  right: 7px;
+  font-size: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+  transition-timing-function: cubic-bezier(0.48, 0.72, 0.62, 1.5);
+  transform: translateX(120%);
+  opacity: 0;
+}
+
+li:active {
+  background-color: #646cff40;
+  opacity: 0.4;
+}
+
+li:hover::after {
+  opacity: 1;
+  transform: translate(0);
+}
+
+.over {
+  transform: scale(1.1, 1.1);
 }
 
 .droppable {
