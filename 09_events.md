@@ -12,6 +12,8 @@ Documentation: <https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Buildi
 
 - `RECOMMENDED`: `addEventListener` and `removeEventListener` methods
 
+  - advantage: you can register multiple events also of same type on the element
+
   ```TypeScript
   const button = document.querySelector('button');
   const handleButtonClick = () => {
@@ -130,5 +132,19 @@ list.addEventListener('click', (event) => {
   // closest() search for the next ancestor element or works also when the searched element is clicked itself
   event.target.closest('li').classList.toggle('highlight');
 })
+```
 
+## Triggering DOM Elements Programmatically
+
+```TypeScript
+const list = document.querySelector('ul')
+const form = document.querySelector('form');
+const formButton = document.querySelector('button');
+
+list.addEventListener('click', (event) => {
+  event.target.closest('li').classList.toggle('highlight');
+  // trigger click or submit on form inside another function
+  form.submit(); // notice: would bypass the event.preventDefault() and reload page
+  formButton.click(); // triggers button click, when you add preventDefault() inside event handler, then no reload of page
+})
 ```
