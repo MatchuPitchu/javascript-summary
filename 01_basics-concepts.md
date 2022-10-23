@@ -232,3 +232,46 @@ error.code = 404; // add error code to object
 console.log(error); // prints directly the error message with stack trace
 console.dir(error); // prints error object
 ```
+
+## Asynchronous JavaScript
+
+![](/slides/37_single-threaded-javascript.png)
+
+![](/slides/38_single-threaded-javscript-2.png)
+
+![](/slides/39_async-operation-javascript.png)
+
+### Event Loop, Queue and Async Code
+
+- `JavaScript` is single-threaded but offloads longer-taking tasks (e.g. timers) to the browser (which uses multiple threads)
+
+```TypeScript
+const greet = () => console.log('Hello');
+
+const showAlert = () => alert('Danger');
+
+setTimeout(showAlert, 2000)
+
+greet();
+```
+
+- [1] setTimeout is put on the `stack` and called -> it's a `(Browser) APIs` (like DOM API, navigator.geolocation ...) and that's why it's moved from the `stack` to the `browser` which takes care of this ongoing timer -> after end of timeout (imagine for this scenario that this would happen between [2] and [3]), `showAlert()` is put on the `message queue` (i.e. function is registered as a todo)
+- [2] `greet()` is called
+- [3] `console.log()` inside greet is called
+- [4] `stack` with [2] and [3] will finish first
+- [5] `Event Loop` pushes `showAlert` inside the `message queue` into the `stack` -> `Event Loop` synchronizes the call stack with the waiting messages, so it runs the whole time to check if `stack` is empty and if there are registered todos
+
+![](/slides/40_event-loop-stack-queue.png)
+
+```TypeScript
+// Example
+const trackUserHandler = () => {
+  // call of async Browser API
+  navigator,geolocation.getCurrentPosition(
+    (positionData) => console.log(positionData),
+    (error) => console.error(error)
+  );
+  // this log executes always earlier than the success or error callback inside of the geolocation API
+  console.log('Getting position ...');
+};
+```
