@@ -271,7 +271,105 @@ const trackUserHandler = () => {
     (positionData) => console.log(positionData),
     (error) => console.error(error)
   );
-  // this log executes always earlier than the success or error callback inside of the geolocation API
+  // this log executes always earlier than the success callback or error callback inside of the geolocation API
   console.log('Getting position ...');
 };
+```
+
+### Promises
+
+- 3 different promise states:
+  - `Pending`: Promise is doing work, neither `then()`nor `catch()` executes this moment
+  - `Resolved`: Promise is resolved, `then()` executes
+  - `Rejected`: Promise was rejected, `catch()` executes
+- when you have another `then()` block after a `catch()` or `then()` block, the promise re-enters `pending` mode (-> `then()` and `catch()` always return a new promise - either not resolving to anything or resolving to what you return inside of `then()`)
+- only if there are no more `then()` blocks left, it enters a new, final mode: `settled`
+- once `settled`, you can use special block `finally()` to do final cleanup work
+  - `finally()` is reached no matter if you resolved or rejected before, but you do NOT have to use it
+
+```TypeScript
+// [1] Example: promisefy setTimeout()
+const setTimer = (duration) => {
+  // create a new Promise object with help of an anonymous function where to parameters as functions are passed in (resolve + reject fn)
+  const promise = new Promise((resolve, reject) => {
+    setTmeout(() => {
+      // when executed, resolve() will mark promise as successfully done
+      // you can pass as argument whatever you want (string, array, object)
+      resolve('Done');
+    }, duration);
+  });
+  return promise;
+
+};
+
+setTimer(3000).then(data => {
+  console.log(data); // 'Done'
+});
+
+// [2] Example: promisefy navigator.geolocation.getCurrentPosition() AND promise chaining
+const getPosition = (options) => {
+  const promise = new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition((success) => {
+      resolve(success);
+    }, (error) => {
+      reject(error); // marks promise as failed
+    }, options)
+  })
+}
+
+let geoData = {};
+
+getPosition()
+  .then((positionData) => {
+    geoData = positionData;
+    // reset resolved promise here to pending state to integrate another promise
+    // you could also return simply data or a string (NOT have to be a promise) that would be wrapped in a promise, immediately resolved and passed as argument into the next then-block
+    return setTimer(2000);
+  })
+  .then((timerData) => {
+    console.log(timerData, geoData);
+  })
+  .catch((err) => {
+    // if any of the promises in the chain prior of catch block fails, then 'then blocks' are interrupted and catch block continues with passed argument of reject()
+    // but if there is 'then block' afterwards, promise chain continues und you can even return something in catch block
+    console.log(err);
+    return 'promise chain continues'
+  }
+```
+
+- methods on `Promise`
+
+```JavaScript
+// [1] race method takes array of promises and ONLY resolves the fastes promise (-> other promises are not cancelled, just the result is ignored)
+Promise.race([getPosition(), setTimer(2000)]).then(data => console.log(data));
+
+// [2] all method takes array of promises and returns array of all resolved promises, BUT ONLY if all promises were successfully resolved, otherwise if one is rejected, then catch block would be executed
+Promise.all([getPostion(), settimer(2000)]).then(promisesData => console.log(promisesData));
+
+// [3] as [2] but returns an object with information about all promises (which failed, which succeeded)
+Promise.allSettled([getPostion(), settimer(2000)]).then(promisesData => console.log(promisesData));
+```
+
+### Async Await Syntax
+
+- you can use `async`/`await` in functions: it's `syntactic sugar` and `async` wraps the whole function into a promise and with `await` the `then blocks` are working behind the scenes
+- `async` added to a function, this function will automatically return a promise
+- the code seems to be synchronous, but is asynchronous under the hood
+- when code line is resolved with `await`, then next line is executed
+- error handling with `try` and `catch`
+
+```JavaScript
+const trackUserPosition = async () => {
+  let positionData = {};
+  let timerData = '';
+
+  try {
+    positionData = await getPosition();
+    timerData = await setTimer(2000);
+  } catch (error) {
+    console.log(error)
+  };
+  // this line will always run, no matter if promises inside try block were successfully resolved or rejected and moved into the catch block
+  console.log(timerData, geoData);
+}
 ```
