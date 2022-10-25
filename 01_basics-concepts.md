@@ -447,14 +447,26 @@ fetchPosts('http://jsonplaceholder.typicode.com/posts');
 - Examples of libraries:
 
   - `lodash`: <https://lodash.com>
+  - `Axios`: Promise based HTTP client for the browser and `node.js`
+  - `jQuery`: was popular around 2010 to traverse and manipulate HTML documents, but nowadays not needed because of `DOM API`
+  - `React`: library for building user interfaces
 
 - Import libraries:
+
   - [1] when added in the HTML head, always insert third party library before your script (that uses library)
 
-```HTML
-<head>
-  <script scr='library.min.js' defer></script>
-  <script scr='your-app.js' defer></script>
-</head>
+  ```HTML
+  <head>
+    <script scr='library.min.js' defer></script>
+    <script scr='your-app.js' defer></script>
+  </head>
+  ```
 
-```
+  - [2] only import parts of a library that you need (-> to reduce the size shift to the user)
+
+- notice when using libraries:
+  - [1] size of external packages
+  - [2] security issues of library code base
+  - [3] at what intervals is the library updated (indicator for quality)
+  - [4] official TypeScript support by authors of library
+  - [5] how many stars has GitHub repo of library
