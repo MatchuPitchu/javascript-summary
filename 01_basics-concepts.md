@@ -406,7 +406,7 @@ const trackUserPosition = async () => {
 - globally available built-in browser function: `fetch()`
 - `fetch` is promise based, i.e. return value is always a promise object
 
-```JavaScript
+```TypeScript
 type HttpMethods = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
 const sendHttpRequest = async (method: HttpMethods, url: string, data?: any) => {
@@ -438,4 +438,23 @@ const fetchPosts = async (url: string) => {
 };
 
 fetchPosts('http://jsonplaceholder.typicode.com/posts');
+```
+
+## Third Party Libraries
+
+- add utility functions
+- help to use generic logic that has already been solved in many other projects before
+- Examples of libraries:
+
+  - `lodash`: <https://lodash.com>
+
+- Import libraries:
+  - [1] when added in the HTML head, always insert third party library before your script (that uses library)
+
+```HTML
+<head>
+  <script scr='library.min.js' defer></script>
+  <script scr='your-app.js' defer></script>
+</head>
+
 ```
