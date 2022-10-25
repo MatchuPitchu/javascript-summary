@@ -175,7 +175,11 @@ Object.defineProperty(person, 'name', {
 
 ## Functions
 
-## Pure Function
+- difference between `function declaration / function statement` and `function expression`
+
+![](/slides/18_function-declaration-vs-expression.png)
+
+### Pure Function
 
 - same input (arguments) always produces the same output
 - does NOT have `side effects`, i.e. function should not change something outside of the function
@@ -201,7 +205,7 @@ const printTech = (tech: string) => {
 }
 ```
 
-## Factory Functions
+### Factory Functions
 
 - a function that returns a new function/object that can be for example pre-configured with some block scoped variables
 
@@ -214,7 +218,7 @@ const calculateVatAmount = createTaxCalculator(0.19);
 const calculateIncomeTaxAmount = createTaxCalculator(0.25);
 ```
 
-## Closures
+### Closures
 
 - every function in JavaScript is a `closure`
 
@@ -246,7 +250,7 @@ userName = 'Pitchu';
 greetUser(); // output: Pitchu
 ```
 
-## Immediately Invoked Function Expression (IIFE)
+### Immediately Invoked Function Expression (IIFE)
 
 - can be found especially in older scripts: snippet below uses `var`, as a consequence, it was hard to control where variables were available - variables outside of function always were available globally. Well, IIFEs solve that problem since the script (or parts of it) essentially are wrapped in a function => Function scope is used. Nowadays, this is not really required anymore.
 
@@ -270,7 +274,7 @@ console.log(age); // Error: "age is not defined"
 console.log(age); // Error: "age is not defined"
 ```
 
-## Recursion Pattern
+### Recursion Pattern
 
 ```TypeScript
 // [1] Approach WITHOUT recursion

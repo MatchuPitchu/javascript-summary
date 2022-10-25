@@ -171,12 +171,6 @@ outerLoop: for (let i = 0; i < 3; i++) {
 }
 ```
 
-## Functions
-
-- difference between `function declaration / function statement` and `function expression`
-
-![](/slides/18_function-declaration-vs-expression.png)
-
 ## Document and Windows Object
 
 ![](/slides/19_document-and-window.png)
@@ -372,4 +366,76 @@ const trackUserPosition = async () => {
   // this line will always run, no matter if promises inside try block were successfully resolved or rejected and moved into the catch block
   console.log(timerData, geoData);
 }
+```
+
+## HTTP Requests
+
+- how websites work: <https://academind.com/tutorials/how-the-web-works>
+
+![](/slides/41_http-overview.png)
+
+- `{JSON} Placeholder`: Free fake API for testing and prototyping <http://jsonplaceholder.typicode.com/>
+
+### JavaScript Object Notation (JSON) Data Deep Dive
+
+- JSON data supports:
+
+  - `objects` (`{}`)
+  - `arrays` (`[]`)
+  - `strings` (MUST use `double-quotes`)
+  - `numbers` (NO quotes)
+  - `booleans` (also NO quotes)
+  - `object keys` (e.g. "name") HAVE to be wrapped by double quotes
+
+- JSON "object" is `wrapped in quotes` itself because JSON data in the end is just a string that contains data in the format shown above
+
+```JSON
+{
+  "name": "Max",
+  "age": 30,
+  "hobbies": [
+    { "id": "h1", "title": "Sports" },
+    { "id": "h2", "title": "Cooking" }
+  ],
+  "isInstructor": true
+}
+```
+
+### Fetch API
+
+- globally available built-in browser function: `fetch()`
+- `fetch` is promise based, i.e. return value is always a promise object
+
+```JavaScript
+type HttpMethods = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
+
+const sendHttpRequest = async (method: HttpMethods, url: string, data?: any) => {
+  const options = {
+    method,
+    body: JSON.stringify(data),
+    headers: {
+      'Content-Type': 'application/json', // inform server that json data will be sent
+    },
+  };
+
+  const response = await fetch(url, options);
+  if (response.statusText === 'OK') {
+    return response.json();
+  } else {
+    console.log(response);
+    throw new Error('Something went wrong');
+  }
+};
+
+// GET Request
+const fetchPosts = async (url: string) => {
+  try {
+    const data = await sendHttpRequest('GET', url);
+    console.log(data);
+  } catch (error: unknown) {
+    console.log(error);
+  }
+};
+
+fetchPosts('http://jsonplaceholder.typicode.com/posts');
 ```
