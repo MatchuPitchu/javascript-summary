@@ -470,3 +470,22 @@ fetchPosts('http://jsonplaceholder.typicode.com/posts');
   - [3] at what intervals is the library updated (indicator for quality)
   - [4] official TypeScript support by authors of library
   - [5] how many stars has GitHub repo of library
+
+## JavaScript Modules
+
+- to split your code into multiple files/modules to keep code maintainable
+- when adding type attribute of `module` to your starting JavaScript file, then this file and every file connected with it has its own scoop -> WITHOUT `module` every integrated file with script tag is added to the global scoop
+- to avoid `CORS` (Cross-Origin Resource Sharing) issues (that blocks download of files not having the same origin) you have to use a dev server
+
+```HTML
+  <head>
+    <script scr='main.js' defer type='module'></script>
+  </head>
+```
+
+- Exporting:
+  - `named export`: use `export` keyword: make variables, objects, arrays, classes, functions etc. inside of one module available in other modules
+- Importing:
+  - `named import`: use `import { foo, bar } from './RELATIVE_PATH_TO_FILE.js`
+  - `re-naming named import`: use `import { foo as bar } from './RELATIVE_PATH_TO_FILE.js`
+  - `bundled object import`: use `import * as NAME_OF_YOUR_CHOICE from './RELATIVE_PATH_TO_FILE.js`
