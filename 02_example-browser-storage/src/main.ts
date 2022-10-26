@@ -91,4 +91,3 @@ retrieveButton?.addEventListener('click', () => {
     console.log(request.result); // retrieved item
   };
 });
-
