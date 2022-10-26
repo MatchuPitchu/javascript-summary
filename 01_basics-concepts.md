@@ -536,3 +536,88 @@ const myFunction = async () => {
 - modules run by default in `strict mode`, so e.g. `this` in the top level of a module is `undefined` -> if you want the global object, use `window`
 - as a last resort, you could attach something to the window object, if you need to share things between modules
 - in modules, the `globalThis` is available -> it points to the `window` object and is available in `Browser` and `Node.js`
+
+## Tooling and Workflows with JavaScript
+
+- limitations of "basic projects"
+
+  - micro-management of imports OR lots of unnecessary HTTP requests
+  - unoptimized code (not as small as possible)
+  - potentially sub-optimal browser support
+  - need to reload page manually (after changes to code)
+  - code quality is not checked
+
+### Helpful Tools
+
+- `development server`:
+  - e.g. `Vite`, `webpack-dev-server`, `serve` (standalone tool)
+  - serve under (more) realistic circumstances, auto-reload
+- `bundling tool`:
+  - e.g. `Vite`, `Webpack`
+  - combine multiple files into bundled code (less files)
+- `code optimization tool`:
+  - e.g. `Vite`, `Webpack`
+  - optimize code (shorten function names, remove whitespace etc.)
+- `code compilation tool`:
+  - e.g. `Babel`, `TypeScript`
+  - write modern code, get "older" code as output
+- `code quality checker`:
+  - e.g. `ESLint`, `TypeScript`
+  - check code quality, check for conventions and patterns
+
+### Setup
+
+![](/slides/42_tooling-setup-javascript.png)
+
+### Example Webpack
+
+- create `webpack.config.js` and define your `mode: 'development'` for dev
+- create `webpack.config.prod.js` and define your `mode: 'production'` for production build -> in `package.json` you have to add your script for build and add the prod config file (e.g. `"build:prod": "webpack --config webpack.config.prod.js"`)
+
+#### File Naming
+
+- when you ship your built app to users, often JavaScript files are cached by browsers
+- when you update your code, you can force browsers to download the new files
+- solution: automatically generation of file names
+  - [1] use `[contenthash]` random variable injection in webpack config
+  - [2] update generated file name in HTML script tag: `<script src="..." defer type="module">`
+
+```JavaScript
+// Example: webpack.config.prod.js
+// for more details, have a look at the official documentation
+const path = require('path');
+
+module.exports = {
+  mode: 'production',
+  entry: './src/app.js',
+  output: {
+    filename: 'app[contenthash].js',
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: 'dist'
+  },
+  devTool: 'cheap-source-map'
+}
+```
+
+#### Sourcemaps
+
+- in dev mode, you can create a `sourcemap` for each js-file that allows you to debug your code in a normal way in the browser
+
+#### Multiple Entry Points
+
+- In bigger projects - with multiple HTML pages - you might have multiple scripts for the different pages (HTML files) you might be building
+- Hence you might need more than one entry point because you want to build more than one bundle (i.e. not every HTML page uses the same script)
+
+```JavaScript
+// webpack.config.js
+entry: {
+    welcome: './src/welcome-page/welcome.js',
+    about: './src/about-page/about.js',
+    // etc.
+}
+```
+
+- Now Webpack will look up all these entry points and create one bundle per entry point - you can then link to these bundles in your respective HTML files
+- Documentation:
+  - Code Splitting (i.e. generating more than one bundle): <https://webpack.js.org/guides/code-splitting>
+  - Entry Point Configuration: <https://webpack.js.org/concepts/#entry>
