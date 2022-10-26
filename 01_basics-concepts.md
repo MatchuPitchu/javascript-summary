@@ -474,7 +474,7 @@ fetchPosts('http://jsonplaceholder.typicode.com/posts');
 ## JavaScript Modules
 
 - to split your code into multiple files/modules to keep code maintainable
-- when adding type attribute of `module` to your starting JavaScript file, then this file and every file connected with it has its own scoop -> WITHOUT `module` every integrated file with script tag is added to the global scoop
+- when adding type attribute of `module` to your starting JavaScript file, then this file and every file connected with it has its own scope -> WITHOUT `module` every integrated file with script tag is added to the global scope
 - to avoid `CORS` (Cross-Origin Resource Sharing) issues (that blocks download of files not having the same origin) you have to use a dev server
 
 ```HTML
@@ -483,9 +483,56 @@ fetchPosts('http://jsonplaceholder.typicode.com/posts');
   </head>
 ```
 
-- Exporting:
-  - `named export`: use `export` keyword: make variables, objects, arrays, classes, functions etc. inside of one module available in other modules
-- Importing:
+- Export:
+  - `named export` (1 or more per file): use `export foo` to make variables, objects, arrays, classes, functions etc. inside of one module available in other modules
+  - `default export` (only 1 per file): use `export default foo` if you want to export a single value or you want to have a fallback value for your module
+- Import:
+  - Notice: code inside a file is executed when a module is imported and loaded the `first(!) time` -> even if imported multiple times
   - `named import`: use `import { foo, bar } from './RELATIVE_PATH_TO_FILE.js`
   - `re-naming named import`: use `import { foo as bar } from './RELATIVE_PATH_TO_FILE.js`
   - `bundled object import`: use `import * as NAME_OF_YOUR_CHOICE from './RELATIVE_PATH_TO_FILE.js`
+  - `default import`: use `import NAME_AS_YOU_LIKE from './RELATIVE_PATH_TO_FILE.js`
+- Re-Export: to aggregate the exports from some files and re-export them -> that you can consume the exports from a single module (-> bundled single source)
+
+```JavaScript
+// child1.js
+const myFunction = () => {};
+const myVariable = 1;
+export { myFunction, myVariable };
+
+// child2.js
+export const myOtherFunction = () => {};
+
+// parent.js
+export { myFunction, myVariable } from './child1.js';
+export { myOtherFunction } from './child2.js';
+
+// in some top-level module
+import { myFunction, myVariable, myOtherFunction } from './parent.js'
+```
+
+### Dynamic Imports
+
+- unlike the `declaration-style counterpart`, `dynamic imports` are only evaluated when needed, and permits greater syntactic flexibility
+- `import(moduleName)`:
+  - returns a promise
+  - it's a `syntax` that resembles a function call, but `import` is a `keyword`, not a function; you can NOT alias it like `const myImport = import`, which will throw a `SyntaxError`
+
+```JavaScript
+// ... lots of code above
+
+const myFunction = async () => {
+  // ... your logic
+  if (foo) {
+    // dynamic import syntax: since here you need something to import something
+    const { YOUR_NAMED_IMPORT } = await import('./RELATIVE_PATH_TO_FILE.js')
+    // ... do something with import
+  }
+}
+```
+
+### Module Scope
+
+- modules run by default in `strict mode`, so e.g. `this` in the top level of a module is `undefined` -> if you want the global object, use `window`
+- as a last resort, you could attach something to the window object, if you need to share things between modules
+- in modules, the `globalThis` is available -> it points to the `window` object and is available in `Browser` and `Node.js`
