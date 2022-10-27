@@ -621,3 +621,41 @@ entry: {
 - Documentation:
   - Code Splitting (i.e. generating more than one bundle): <https://webpack.js.org/guides/code-splitting>
   - Entry Point Configuration: <https://webpack.js.org/concepts/#entry>
+
+## Meta-Programming
+
+- introduced feature are more about code quality, less about user interaction
+
+### Symbols
+
+- primitive values
+- used as object property identifiers
+- built-in and creatable by developers
+- uniqueness is guaranteed
+
+```TypeScript
+// [1] LIBRARY CODE
+const id = Symbol('uid'); // 'foo' is completely optional to identify this symbol for you as a developer (-> it's NO id or anything else connected to the functionality of this symbol)
+
+// if you create a library and you do NOT want that users can overwrite a property (e.g. here 'id')
+const user = {
+  // id: '1', // could be overwritten by library user
+  [id]: '1', // is unique and can NOT be overwritten outside of library
+  name: 'Matchu',
+}
+// user[uid] = '3'; // inside of library you can overwrite it
+
+// [2] LIBRARY USER CODE
+user.id = '2'; // should not be possible for library user
+
+console.log(user); // { name: "Matchu", id: "2", Symbol("uid"): "1" }
+
+console.log(user[Symbol('uid')]); // undefined, because this is "Symbol('uid')" is a completely new symbol
+Symbol('uid') === Symbol('uid'); // false
+```
+
+### Iterators and Generators
+
+### Reflect API
+
+### Proxy API
