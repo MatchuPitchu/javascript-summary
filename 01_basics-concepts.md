@@ -628,6 +628,8 @@ entry: {
 
 ### Symbols
 
+<https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol?retiredLocale=de>
+
 - primitive values
 - used as object property identifiers
 - built-in and creatable by developers
@@ -635,7 +637,7 @@ entry: {
 
 ```TypeScript
 // [1] LIBRARY CODE
-const id = Symbol('uid'); // 'foo' is completely optional to identify this symbol for you as a developer (-> it's NO id or anything else connected to the functionality of this symbol)
+const id = Symbol('uid'); // argument 'uid' is completely optional to identify this symbol for you as a developer when you console.log it (-> it's NO id or anything else connected to the functionality of this symbol)
 
 // if you create a library and you do NOT want that users can overwrite a property (e.g. here 'id')
 const user = {
@@ -654,7 +656,92 @@ console.log(user[Symbol('uid')]); // undefined, because this is "Symbol('uid')" 
 Symbol('uid') === Symbol('uid'); // false
 ```
 
+- built-in symbols in Javascript like `Symbol.iterator`
+  - <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol?retiredLocale=de#well-known_symbols>
+
+```TypeScript
+const user = {
+  [id]: '1',
+  name: 'Matchu',
+  [Symbol.toStringTag]: 'User', // defines what the toString method on the object should output
+}
+
+user.toString(); // [object User] -> without Symbol.toString Tag [object Object]
+```
+
 ### Iterators and Generators
+
+- implement custom iterator method with `next()`: makes object iterable with our logic
+
+```TypeScript
+const company = {
+  currentEmployee: 0,
+  employees: ['Matchu', 'Pitchu', 'Bio'],
+
+  next() {
+    if(this.currentEmployee >= this.employees.length) {
+      return { value: this.currentEmployee, done: true };
+    }
+    const returnValue = { value: this.employees[this.currentEmployee], done: false };
+    this.currentEmployee++;
+    return returnValue
+  }
+}
+
+let employee = company.next();
+
+while(!employee.done) {
+  console.log(employee.value);
+  employee = company.next();
+}
+```
+
+- implement iterator to use with `for ... of` loop with the help of a `generator` which is a special type of function which automatically generates an iterator for you
+  - generator function (`function*`) creates a new object which has a `next()` on its own
+  - `yield` keyword returns the thing after it as a value/result of the function call
+  - so finally `yield` returns the current value when you call `next()` on the same object
+  - when using `[Symbol.iterator]` than you can loop over object: `for ... of` calls `next()` behind the scenes and executes as long as it does NOT find `done: true`
+
+```TypeScript
+// [1] Without Symbol
+const company = {
+  employees: ['Matchu', 'Pitchu', 'Bio'],
+  getEmployee: function* employeeGenerator() {
+    let currentEmployee = 0;
+
+    while(currentEmployee < this.employees.length) {
+      yield this.employees[currentEmployee];
+      currentEmployee++
+    }
+  }
+}
+
+let it = company.getEmployee();
+
+console.log(it.next());
+console.log(it.next());
+console.log(it.next());
+console.log(it.next());
+
+// [2] With Symbol.iterator to create an object that's iterable by loops
+const company = {
+  employees: ['Matchu', 'Pitchu', 'Bio'],
+  [Symbol.iterator]: function* employeeGenerator() {
+    let currentEmployee = 0;
+
+    while(currentEmployee < this.employees.length) {
+      yield this.employees[currentEmployee];
+      currentEmployee++
+    }
+  }
+}
+
+for (const employee of company) {
+  console.log(employee);
+}
+
+const companyCopy = [...company]; // spread operator works with Symbol.iterator
+```
 
 ### Reflect API
 
