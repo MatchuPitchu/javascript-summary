@@ -624,7 +624,8 @@ entry: {
 
 ## Meta-Programming
 
-- introduced feature are more about code quality, less about user interaction
+- introduced features are more about code quality, less about user interaction
+- can be helpful especially for library authors
 
 ### Symbols
 
@@ -701,7 +702,7 @@ while(!employee.done) {
   - `yield` keyword returns the thing after it as a value/result of the function call
   - so finally `yield` returns the current value when you call `next()` on the same object
   - when using `[Symbol.iterator]` than you can loop over object: `for ... of` calls `next()` behind the scenes and executes as long as it does NOT find `done: true`
-- finally Arrays work exactly with `[Symbol.iterator]`
+- `[Symbol.iterator]` is internally used by `arrays`, `strings` etc.
 
 ```TypeScript
 // [1] Without Symbol
@@ -746,4 +747,72 @@ const companyCopy = [...company]; // spread operator works with Symbol.iterator
 
 ### Reflect API
 
+- `Reflect API` is an object with methods than can help you to control objects
+- standardized and grouped methods to work with objects
+- control code usage/impact
+- `Reflect` offers same methods as `Object` (look objects section in this repo), but differences are:
+  - better error handling
+  - better return if operator succeeded or failed
+  - `Reflect` offers more properties (e.g. `Reflect.deleteProperty(object, 'PROPERTY_NAME')`)
+
+```TypeScript
+const user = {
+  name: 'Matchu',
+}
+
+Reflect.setPrototypeOf(user, {
+  toString() {
+    return this.name
+  }
+});
+
+Reflect.defineProperty(user, 'age', {
+  configurable: true, // defines if you can delete or not and other things
+  enumerable: true, // defines if appears in loops
+  value: 30,
+  writable: false, // no re-write possible AND no Error thrown if re-write is tried
+})
+```
+
 ### Proxy API
+
+<https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy>
+
+- create `traps` for object operations
+- step in and execute code
+- control code usage/impact
+
+```TypeScript
+const course = {
+  title: 'TypeScript',
+}
+
+const courseHandler = {
+  // get trap (look documentation)
+  get(obj, propertyName) {
+    console.log(propertyName);
+    return obj[propertyName] || 'Not found';
+  },
+  // set trap
+  set(obj, propertyName, newValue) {
+    // normal behavior of property setting in objects
+    obj[propertyName] = newValue;
+
+    // block writing something on 'rating' property
+    if (propertyName === 'rating') {
+      return 'Not allowed';
+    }
+
+    // other use case: sending analytics data to server
+  }
+}
+
+// a) Proxy wraps an object around your existing object
+// b) Second argument adds functionality ("traps") to your object
+const proxyCourse = new Proxy(course, courseHandler);
+
+console.log(proxyCourse.title); // outputs 'title' (NOT as normal 'TypeScript')
+console.log(proxyCourse.name); // outputs 'Not found' (NOT undefined)
+
+proxyCourse.rating = 5; // 'Not allowed'
+```
