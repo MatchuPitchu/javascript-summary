@@ -701,6 +701,7 @@ while(!employee.done) {
   - `yield` keyword returns the thing after it as a value/result of the function call
   - so finally `yield` returns the current value when you call `next()` on the same object
   - when using `[Symbol.iterator]` than you can loop over object: `for ... of` calls `next()` behind the scenes and executes as long as it does NOT find `done: true`
+- finally Arrays work exactly with `[Symbol.iterator]`
 
 ```TypeScript
 // [1] Without Symbol
