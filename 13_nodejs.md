@@ -56,9 +56,10 @@ server.listen(PORT);
 
 ## Framework and Tools
 
-- `Express.js` is a framework to simplify working with Node.js
-- `body-parser`: npm package to parse the body of HTTP requests
-- `ejs`: npm package for embedded JavaScript templating for server-side rendered HTML
+- example project uses:
+  - `Express.js` is a framework to simplify working with Node.js
+  - `body-parser`: npm package to parse the body of HTTP requests
+  - `ejs`: npm package for embedded JavaScript templating for server-side rendered HTML
 
 ## Cross-Origin Resource Sharing (CORS)
 
