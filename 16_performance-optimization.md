@@ -1,13 +1,28 @@
 # Performance Optimization in JavaScript
 
-- `performance` is influenced by a lot of factors: CSS, HTML, JavaScript Code, server speed, server configuration
-- `startup time`
+- `Performance` is influenced by a lot of factors: CSS, HTML, JavaScript Code, server speed, server configuration
+- `Startup Time`
   - how long does it take to see something on the screen
   - how quickly is a user able to interact with the page
-- `runtime performance`
+- `Runtime Performance`
   - how smooth does app run (freezes, lag)
   - how smooth do animations play (visual lag)
   - are there any memory leaks (do you clean things that you do NOT need anymore), is page getting slower over time
+
+## Recommendations
+
+- `Startup Performance`
+
+  - eliminate unnecessary or unused code, avoid using too many libraries
+  - potentially add third-party libraries to bundle instead of via CDN
+  - bundle code and use `lazy loading`
+  - minify code
+
+- `Runtime Performance`
+  - avoid unnecessary code executions, batch operations together
+  - find + fix memory leaks, even small ones
+  - for high-frequency operations: use optimal JavaScript approach (re-validate regulary)
+  - consider micro-optimization
 
 ## Different Layers of Performance Optimization
 
