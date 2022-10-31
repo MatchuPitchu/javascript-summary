@@ -3,7 +3,7 @@
 - `browser`: store temporary, convenience data
 - `server`: store essential and persistent data
 
-![](/slides/43_browser-storage.png)
+![](/00_slides/43_browser-storage.png)
 
 ## Types of Browser Storage
 
@@ -11,7 +11,7 @@
 - `Cookies`
 - `IndexedDB`
 
-![](/slides/44_localstorage-cookies-indexeddb.png)
+![](/00_slides/44_localstorage-cookies-indexeddb.png)
 
 ## Examples
 

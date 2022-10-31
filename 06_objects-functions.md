@@ -177,7 +177,7 @@ Object.defineProperty(person, 'name', {
 
 - difference between `function declaration / function statement` and `function expression`
 
-![](/slides/18_function-declaration-vs-expression.png)
+![](/00_slides/18_function-declaration-vs-expression.png)
 
 ### Pure Function
 

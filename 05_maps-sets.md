@@ -3,7 +3,7 @@
 - difference of `Arrays`, `Sets` and `Maps`
   - `Set` is a data structure that is perfect if you want to store unique values; it can tell you if it contains a value or not
 
-![](/slides/26_difference-arrays-sets-maps.png)
+![](/00_slides/26_difference-arrays-sets-maps.png)
 
 ```TypeScript
 /*** Sets ***/

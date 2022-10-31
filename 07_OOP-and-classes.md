@@ -23,15 +23,15 @@ person.greet();
 - JavaScript uses `Prototypical Inheritance` -> `class` syntax is basically just `syntactic sugar`
 - Constructor functions and prototypes power JavaScript objects
 
-![](/slides/30_prototypes-1.png)
+![](/00_slides/30_prototypes-1.png)
 
 - every object has a prototype which is a connected object that is used as a fallback object and contains built-in methods that can be used (e.g. `person.toString()`)
 
-![](/slides/31_prototypes-2.png)
+![](/00_slides/31_prototypes-2.png)
 
 ### Prototype Chain
 
-![](/slides/32_prototype-chain.png)
+![](/00_slides/32_prototype-chain.png)
 
 ```TypeScript
 // extends keyword makes functionality available on all classes that extend the same base class
@@ -72,7 +72,7 @@ const areBothObjectsEqual = Object.getPrototypeOf(person1) === Object.getPrototy
 
 - how objects are created in class instances and how `this` behaves
 
-![](/slides/33_prototypes-and-this-keyword.png)
+![](/00_slides/33_prototypes-and-this-keyword.png)
 
 ### Setting and Getting Prototypes
 
@@ -93,7 +93,7 @@ Object.setPrototypeOf(course, {
 
 ## Classes and Instances of Classes
 
-![](/slides/27_classes-instances.png)
+![](/00_slides/27_classes-instances.png)
 
 ```TypeScript
 // blueprint or template for objects that can be instantiated based on this class
@@ -133,7 +133,7 @@ productList.render();
 
 ### Class Fields and Properties
 
-![](/slides/28_class-fields-and-properties.png)
+![](/00_slides/28_class-fields-and-properties.png)
 
 - `static properties`, `fields` and `methods`
 
@@ -161,7 +161,7 @@ App.init();
 
 ### Inheritance
 
-![](/slides/29_class-inheritance.png)
+![](/00_slides/29_class-inheritance.png)
 
 ```TypeScript
 class Component {

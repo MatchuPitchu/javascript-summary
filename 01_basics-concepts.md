@@ -11,19 +11,19 @@
 
 ## How JavaScript is executed?
 
-![](/slides/01_how-javascript-is-executed.png)
+![](/00_slides/01_how-javascript-is-executed.png)
 
 - how JavaScript engines are working in general in browsers
 
-![](/slides/14_javascript-engines-work-flow.png)
+![](/00_slides/14_javascript-engines-work-flow.png)
 
 - how code gets executed in JavaScript
 
-![](/slides/15_javascript-engine-code-execution.png)
+![](/00_slides/15_javascript-engine-code-execution.png)
 
 ## Overview of the JavaScript History
 
-![](/slides/02_overview-history-javascript.png)
+![](/00_slides/02_overview-history-javascript.png)
 
 - `ECMAScript` sets standards for JS which are implemented by browser vendors (Google with Chrome, Mozilla with Firefox etc.) in their `JavaScript engines`
 
@@ -35,41 +35,41 @@
 
 - naming conventions and restrictions
 
-![](/slides/03_variable-naming.png)
+![](/00_slides/03_variable-naming.png)
 
 ## Primitive vs Reference Values
 
-![](/slides/16_primitive-vs-reference-values.png)
+![](/00_slides/16_primitive-vs-reference-values.png)
 
 ## Garbage Collection
 
-![](/slides/17_garbage-collection.png)
+![](/00_slides/17_garbage-collection.png)
 
 ## Operators
 
-![](/slides/04_operators.png)
+![](/00_slides/04_operators.png)
 
 ## Data Types
 
-![](/slides/05_data-types.png)
+![](/00_slides/05_data-types.png)
 
-![](/slides/06_null-undefined-NaN.png)
+![](/00_slides/06_null-undefined-NaN.png)
 
 ## Importing JavaScript to a Webpage
 
 - `script` element, `async`/`defer`, timeline of execution while loading the page
 
-![](/slides/07.1_adding-javascript-to-a-webpage.png)
+![](/00_slides/07.1_adding-javascript-to-a-webpage.png)
 
-![](/slides/07.2_how-to-import-javascript-in-a-webpage.png)
+![](/00_slides/07.2_how-to-import-javascript-in-a-webpage.png)
 
-![](/slides/07.3_timeline-execution-summary.png)
+![](/00_slides/07.3_timeline-execution-summary.png)
 
 ## Boolean Operators
 
 - equality operators
 
-![](/slides/08_boolean-operators.png)
+![](/00_slides/08_boolean-operators.png)
 
 ## String Comparison
 
@@ -87,17 +87,17 @@
 
 - `&&`, `||`
 
-![](/slides/09_combining-conditions.png)
+![](/00_slides/09_combining-conditions.png)
 
 ## Falsy & Truthy Values
 
-![](/slides/10.1_falsy-truthy-values.png)
+![](/00_slides/10.1_falsy-truthy-values.png)
 
-![](/slides/10.2_falsy-truthy-values.png)
+![](/00_slides/10.2_falsy-truthy-values.png)
 
 ## Conditional Expressions / Ternary Operator
 
-![](/slides/11_ternary-operator.png)
+![](/00_slides/11_ternary-operator.png)
 
 ## Expression vs. Statement in JavaScript
 
@@ -129,13 +129,13 @@ throw new Error('Something exploded!');
 
 ## Logical Operator Shorthands an handy Use Cases
 
-![](/slides/12_logical-operators-shorthands.png)
+![](/00_slides/12_logical-operators-shorthands.png)
 
 ## Loops
 
 - `for`, `for ... of`, `for ... in`, `while`
 
-![](/slides/13_loops.png)
+![](/00_slides/13_loops.png)
 
 - `break`: stops execution of loop
 
@@ -173,7 +173,7 @@ outerLoop: for (let i = 0; i < 3; i++) {
 
 ## Document and Windows Object
 
-![](/slides/19_document-and-window.png)
+![](/00_slides/19_document-and-window.png)
 
 - global `window` object provides build-in browser methods like `alert()`, `setTimeout()` etc. -> you don't need to write `window.alert()` to call them
 - event the `document` object is a part of the `window` object
@@ -229,11 +229,11 @@ console.dir(error); // prints error object
 
 ## Asynchronous JavaScript
 
-![](/slides/37_single-threaded-javascript.png)
+![](/00_slides/37_single-threaded-javascript.png)
 
-![](/slides/38_single-threaded-javscript-2.png)
+![](/00_slides/38_single-threaded-javscript-2.png)
 
-![](/slides/39_async-operation-javascript.png)
+![](/00_slides/39_async-operation-javascript.png)
 
 ### Event Loop, Queue and Async Code
 
@@ -255,7 +255,7 @@ greet();
 - [4] `stack` with [2] and [3] will finish first
 - [5] `Event Loop` pushes `showAlert` inside the `message queue` into the `stack` -> `Event Loop` synchronizes the call stack with the waiting messages, so it runs the whole time to check if `stack` is empty and if there are registered todos
 
-![](/slides/40_event-loop-stack-queue.png)
+![](/00_slides/40_event-loop-stack-queue.png)
 
 ```TypeScript
 // Example
@@ -372,7 +372,7 @@ const trackUserPosition = async () => {
 
 - how websites work: <https://academind.com/tutorials/how-the-web-works>
 
-![](/slides/41_http-overview.png)
+![](/00_slides/41_http-overview.png)
 
 - `{JSON} Placeholder`: Free fake API for testing and prototyping <http://jsonplaceholder.typicode.com/>
 
@@ -567,7 +567,7 @@ const myFunction = async () => {
 
 ### Setup
 
-![](/slides/42_tooling-setup-javascript.png)
+![](/00_slides/42_tooling-setup-javascript.png)
 
 ### Example Webpack
 
@@ -581,6 +581,8 @@ const myFunction = async () => {
 - solution: automatically generation of file names
   - [1] use `[contenthash]` random variable injection in webpack config
   - [2] update generated file name in HTML script tag: `<script src="..." defer type="module">`
+- to synchronize the automatically generated js files with your HTML script element, use special plugin for Webpack: `The HtmlWebpackPlugin`
+  - Documentation: <https://webpack.js.org/plugins/html-webpack-plugin/>
 
 ```JavaScript
 // Example: webpack.config.prod.js

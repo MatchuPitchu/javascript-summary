@@ -63,7 +63,7 @@ button.addEventListener('click', handleButtonClick);
 - `Capturing`: events are executed from outside to inside
 - `Event.bubbles` read-only property indicates whether the event bubbles up through the DOM tree or not.
 
-![](/slides/36_bubbling-capturing-events.png)
+![](/00_slides/36_bubbling-capturing-events.png)
 
 ```TypeScript
 const outerEl = document.querySelector('div');

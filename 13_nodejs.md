@@ -51,7 +51,7 @@ const server = http.createServer((request, response) => {
 const PORT = 3001;
 
 // listen() starts an ongoing server that can be accessed in browser with localhost:3000
-server.listen(PORT);
+server.listen(process.env.PORT || PORT); // process.env.PORT will be set automatically by Heroku when you deploy your app
 ```
 
 ## Framework and Tools
@@ -63,4 +63,4 @@ server.listen(PORT);
 
 ## Cross-Origin Resource Sharing (CORS)
 
-![](/slides/45_cors.png)
+![](/00_slides/45_cors.png)

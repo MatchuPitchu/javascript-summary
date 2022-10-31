@@ -1,6 +1,6 @@
 # Document Object Model (DOM)
 
-![](/slides/20_document-object-model-dom.png)
+![](/00_slides/20_document-object-model-dom.png)
 
 ## Nodes & Elements
 
@@ -46,23 +46,23 @@
 
 ## Attributes vs Properties
 
-![](/slides/21_attributes-vs-properties.png)
+![](/00_slides/21_attributes-vs-properties.png)
 
 ## Traversing the DOM
 
 - `child`, `descendant`, `parent`, `ancestor`
 
-![](/slides/22_children-descendants-parent-ancestors.png)
+![](/00_slides/22_children-descendants-parent-ancestors.png)
 
-![](/slides/23_traversing-the-dom.png)
+![](/00_slides/23_traversing-the-dom.png)
 
 ## Styling DOM elements
 
-![](/slides/24_styling-dom-elements.png)
+![](/00_slides/24_styling-dom-elements.png)
 
 ## Creating and Inserting Elements
 
-![](/slides/25_creating-and-inserting-elements.png)
+![](/00_slides/25_creating-and-inserting-elements.png)
 
 - `Element.insertAdjacentHTML(position, text)`: parses the specified text as HTML or XML and inserts the resulting nodes into the DOM tree at a specified position.
   - Recommended: instead of `innerHTML` method that replaces whole content between selected HTML tags and forces browser to re-render whole block
@@ -120,13 +120,13 @@ el.scrollBy(x, y); // if called multiple times, continues to scroll with defined
 el.scrollIntoView({ behavior: 'smooth' }); // scroll element into view with smooth transition
 ```
 
-![](/slides/34_element-position-and-sizes.png)
+![](/00_slides/34_element-position-and-sizes.png)
 
 ## DOM Elements and Inheritance
 
 - Example below: every `HTMLInputElement` has access to all properties of `HTMLElement`, `Element`, `Node` and `EventTarget` (-> prototype chain) and its own properties that are specific to `HTMLInputElement`
 
-![](/slides/35_DOM-elements-inheritance-example.png)
+![](/00_slides/35_DOM-elements-inheritance-example.png)
 
 ## Using HTML Template Element
 
