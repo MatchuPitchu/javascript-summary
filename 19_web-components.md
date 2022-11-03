@@ -111,3 +111,26 @@ class Tooltip extends HTMLElement {
 // Rule: string name should consist at least of 2 words separated by a dash
 customElements.define('mp-tooltip', Tooltip);
 ```
+
+## Example Custom Anchor extending HTMLAnchorElement
+
+```HTML
+<!-- when using specific element as Web Component template, then use is='YOUR_CHOSEN_NAME' -->
+<a is="confirm-link" href="https://www.google.de">Google</a>
+```
+
+```JavaScript
+class ConfirmLink extends HTMLAnchorElement {
+  connectedCallback() {
+    this.addEventListener('click', (event) => {
+      // confirm() is browser built-in method where user can confirm or deny a question
+      if (!confirm('Do you really want to leave?')) {
+        event.preventDefault();
+      }
+    });
+  }
+}
+
+// Whenever you extend a specific element (not a basic HTMLElement), you have to add third argument
+customElements.define('confirm-link', ConfirmLink, { extends: 'a' });
+```
