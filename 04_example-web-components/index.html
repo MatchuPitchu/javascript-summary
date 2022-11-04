@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Web Components</title>
     <script src="tooltip.js" defer></script>
-    <script src="modal.js" defer></script>
     <script src="confirm-link.js" defer></script>
+    <script src="modal.js" defer></script>
     <script src="main.js" defer></script>
     <link rel="stylesheet" href="./style.css" />
   </head>
@@ -22,10 +22,11 @@
 
     <mp-tooltip></mp-tooltip>
 
-    <uc-modal>
+    <mp-modal>
+      <!-- if multiple slots, use slot attribute here and name attribute in shadow DOM -->
       <h1 slot="title">Modal Title</h1>
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing</p>
-    </uc-modal>
+    </mp-modal>
 
     <button id="open-modal">Modal öffnen</button>
 

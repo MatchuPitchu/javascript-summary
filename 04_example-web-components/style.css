@@ -6,6 +6,10 @@
   --color-primary: #a55b5b;
 }
 
+body {
+  margin: 2rem;
+}
+
 mp-tooltip {
   border: 1px solid grey;
   padding: 0.5rem 1rem;

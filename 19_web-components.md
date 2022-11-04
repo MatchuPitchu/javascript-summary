@@ -209,3 +209,10 @@ customElements.define('confirm-link', ConfirmLink, { extends: 'a' });
   background-color: #e2b664;
 }
 ```
+
+## Example Custom Modal
+
+- look at example project `modal.js`
+- Content:
+  - multiple slots and listen for `slotchange` events
+  - define and dispatch a `custom event`
