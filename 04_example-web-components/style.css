@@ -1,0 +1,16 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --color-primary: #a55b5b;
+}
+
+mp-tooltip {
+  border: 1px solid grey;
+  padding: 0.5rem 1rem;
+}
+
+.highlight {
+  background-color: #e2b664;
+}

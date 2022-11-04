@@ -4,34 +4,50 @@ class Tooltip extends HTMLElement {
     super();
     this._container;
     this._icon;
-    this._text = 'Default text';
+    this._text = 'Default tooltip text';
+    this._tooltipVisible = false;
     // [1] attach a shadow DOM to the custom element
     // mode: A string specifying the encapsulation mode for the shadow DOM tree.
     // 'open': elements of the shadow root are accessible from JS outside the root, for example using Element.shadowRoot
     this.attachShadow({ mode: 'open' });
-    // [2] append template to your custom element
+    // [2] append template to your custom element with custom styles
+    // :host -> to style custom element; apply styling conditionally if certain class, id, attribute
+    // is set on custom element in light DOM, us :host(YOUR_SELECTOR)
+    // ::slotted() -> to style "slot" content of light DOM inside shadow DOM
+    // pass * as argument to select ALL slotted content, otherwise you can pass
+    // all normal CSS selectors, but NO child selector (e.g. span a)
+    // Notice: light DOM styling overwrites shadow DOM styling here
     this.shadowRoot.innerHTML = /*html*/ `
       <style>
-        :root {
-          position: relative;
+        :host {
+          background-color: #ccc;
         }
-
+        :host(.important) {
+          color: var(--color-primary, #4a4a4a);
+          background-color: #e2b664;
+        }
+        ::slotted(.highlight) {
+          border-bottom: 2px solid red;
+        }
         div {
           position: absolute;
+          top: 20px;
           left: 50%;
-          transform: translate(-50%, 0);
+          transform: translateX(-50%);
+          width: 100px;
           color: #fff;
           background-color: #4a4a4a;
           padding: 5px 10px;
           border-radius: 4px;
+          box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.26);
           z-index: 1;
         }
         #icon {
           position: relative;
-          cursor: pointer;
+          cursor: default;
         }
       </style>
-      <slot>Default Slot Text, if nothing set between custom element tags</slot>
+      <slot>Default slot text, if nothing is set between custom element tags in light DOM</slot>
       <sup id='icon'>&#9432;</sup>
     `;
   }
@@ -49,16 +65,51 @@ class Tooltip extends HTMLElement {
     // [5] append an element to the shadow DOM root
     // "this" refers to the current class, i.e. the shell HTML element
     this.shadowRoot.appendChild(this._icon);
+    // render custom element on mount
+    this._render();
   }
 
+  // [6] observing attribute changes on custom element in light DOM
+  attributeChangedCallback(name, prevValue, newValue) {
+    if (prevValue === newValue) return;
+    if (name === 'text') {
+      this._text = newValue;
+    }
+  }
+
+  // [6.1] establish connection which attributes you want to observe
+  static get observedAttributes() {
+    return ['text'];
+  }
+
+  // [7] clean up work when custom element is removed from DOM
+  disconnectedCallback() {
+    console.log('disconnected');
+    // you do NOT have to remove event listeners here, since browser does it automtically for all DOM elements
+  }
+
+  // [8] custom logic to define how DOM should be updated
+  _render() {
+    if (this._tooltipVisible) {
+      this._container = document.createElement('div');
+      this._container.textContent = this._text;
+      this.shadowRoot.getElementById('icon').appendChild(this._container);
+    }
+
+    if (!this._tooltipVisible && this._container) {
+      this.shadowRoot.getElementById('icon').removeChild(this._container);
+    }
+  }
+
+  // [9] methods responsible for updating data that results in re-rendering
   _showTooltip() {
-    this._container = document.createElement('div');
-    this._container.textContent = this._text;
-    this.shadowRoot.getElementById('icon').appendChild(this._container);
+    this._tooltipVisible = true;
+    this._render();
   }
 
   _hideTooltip() {
-    this.shadowRoot.getElementById('icon').removeChild(this._container);
+    this._tooltipVisible = false;
+    this._render();
   }
 }
 

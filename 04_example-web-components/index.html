@@ -9,9 +9,16 @@
     <script src="modal.js" defer></script>
     <script src="confirm-link.js" defer></script>
     <script src="main.js" defer></script>
+    <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
-    <p><mp-tooltip text="Web Components is a set of standards.">Web Components</mp-tooltip> are nice.</p>
+    <p>
+      <mp-tooltip class="important" text="Tooltip text set as text attribute in light DOM">
+        <!-- Text between Web Component tags is NOT part of shadow DOM, so can be styled in light DOM -->
+        <span class="highlight">Web Components</span>
+      </mp-tooltip>
+      are nice.
+    </p>
 
     <mp-tooltip></mp-tooltip>
 
