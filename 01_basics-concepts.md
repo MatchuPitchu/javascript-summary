@@ -227,6 +227,31 @@ console.log(error); // prints directly the error message with stack trace
 console.dir(error); // prints error object
 ```
 
+## Memory Allocation: Call Stack and Memory Heap
+
+> Article: <https://felixgerschau.com/javascript-memory-management/>
+
+- JavaScript engines have two places where they can store data: The `memory heap` and `stack`.
+- Heaps and stacks are two data structures that the engine uses for different purposes.
+
+- `Stack`: Static memory allocation
+
+  - A stack is a data structure that JavaScript uses to store static data. Static data is data where the engine knows the size at compile time. In JavaScript, this includes primitive values (strings, numbers, booleans, undefined, and null) and references, which point to objects and functions.
+  - Since the engine knows that the size won't change, it will allocate a fixed amount of memory for each value.
+  - The process of allocating memory right before execution is known as static memory allocation.
+  - Because the engine allocates a fixed amount of memory for these values, there is a limit to how large primitive values can be.
+
+- `Heap`: Dynamic memory allocation
+  - The heap is a different space for storing data where JavaScript stores objects and functions.
+  - Unlike the stack, the engine doesn't allocate a fixed amount of memory for these objects. Instead, more space will be allocated as needed.
+  - Allocating memory this way is also called dynamic memory allocation.
+
+| Stack                              | Heap                      |
+| :--------------------------------- | :------------------------ |
+| Primitive values and references    | Objects and functions     |
+| Size is known at compile time      | Size is known at run time |
+| Allocates a fixed amount of memory | No limit per object       |
+
 ## Asynchronous JavaScript
 
 ![](/00_slides/37_single-threaded-javascript.png)
