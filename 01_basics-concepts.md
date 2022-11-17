@@ -205,6 +205,10 @@ const obj = {
 const copiedObj = { ...person, age: 30, hobbies: [...obj.hobbies] }; // 'age: 30' overwrites spread age value, [...obj.hobbies] creates a new copy of nested array
 ```
 
+- `Shallow Copy` and `Deep Clone`
+
+![](/00_slides/55_shallow-copy-deep-clone.png)
+
 ## Destructuring
 
 - destructuring assignment syntax is a JavaScript expression that makes it possible to unpack values from arrays, or properties from objects, into distinct variables.
@@ -219,7 +223,7 @@ const [firstName, lastName, ...restData] = arr; // use rest operator to bundle t
 
 ```TypeScript
 // throw a new error object (notice: you can throw everything, e.g. throw 'foo')
-throw new Error('Error message'); // allows to see the stack trace in  the console
+throw new Error('Error message'); // allows to see the stack trace in the console
 
 const error = new Error('Error message');
 error.code = 404; // add error code to object
@@ -262,7 +266,7 @@ console.dir(error); // prints error object
 
 ### Event Loop, Queue and Async Code
 
-- `JavaScript` is single-threaded but offloads longer-taking tasks (e.g. timers) to the browser (which uses multiple threads)
+- `JavaScript` is single-threaded but offloads longer-taking tasks (e.g. timers) to the browser (which uses `multiple threads`)
 
 ```TypeScript
 const greet = () => console.log('Hello');
@@ -298,7 +302,7 @@ const trackUserHandler = () => {
 ### Promises
 
 - 3 different promise states:
-  - `Pending`: Promise is doing work, neither `then()`nor `catch()` executes this moment
+  - `Pending`: Promise is doing work, neither `then()` nor `catch()` executes this moment
   - `Resolved`: Promise is resolved, `then()` executes
   - `Rejected`: Promise was rejected, `catch()` executes
 - when you have another `then()` block after a `catch()` or `then()` block, the promise re-enters `pending` mode (-> `then()` and `catch()` always return a new promise - either not resolving to anything or resolving to what you return inside of `then()`)
