@@ -128,13 +128,13 @@ export const TableUsingSet = () => {
   const [selectedIds, setSelectedIds] = useState(new Set());
 
   const handleOnChange = (id) => {
-    const updatedIdToSelected = new Set(selectedIds);
-    if (updatedIdToSelected.has(id)) {
-      updatedIdToSelected.delete(id);
+    const updatedSelectedIds = new Set(selectedIds);
+    if (updatedSelectedIds.has(id)) {
+      updatedSelectedIds.delete(id);
     } else {
-      updatedIdToSelected.add(id);
+      updatedSelectedIds.add(id);
     }
-    setSelectedIds(updatedIdToSelected);
+    setSelectedIds(updatedSelectedIds);
   };
 
   return (
