@@ -353,53 +353,69 @@ getFriendNames(network); // output: ['Pitchu', 'Julia', 'Mo', 'Mao']
 
 #### Example Recursion to Create a Menu in React
 
+- recommended: prefere a flat array instead of nested objects
+
 ```TSX
 const menuItems = [
   {
+    id: "1",
     text: "Menu 1",
-    children: [
-      {
-        text: "Menu 1 1",
-        href: "#11",
-      }
-    ],
+    children: ["11", "12"],
+    isRoot: true,
   },
   {
+    id: "11",
+    text: "Menu 1 1",
+    href: "#11",
+  },
+  {
+    id: "12",
+    text: "Menu 1 2",
+    href: "#12",
+  },
+  {
+    id: "2",
     text: "Menu 2",
     href: "#2",
+    isRoot: true,
   },
   {
+    id: "3",
     text: "Menu 3",
-    children: [
-      {
-        text: "Menu 3 1",
-        children: [
-          {
-            id: "311",
-            text: "Menu 3 1 1",
-            href: "#311",
-          },
-        ],
-      },
-    ],
+    children: ["31"],
+    isRoot: true,
+  },
+  {
+    id: "31",
+    text: "Menu 3 1",
+    children: ["311"],
+  },
+  {
+    id: "311",
+    text: "Menu 3 1 1",
+    href: "#311",
   },
 ];
 
 // Menu and MenuItem are recursively calling each other
-const Menu = ({ items }) => (
-  <ul>
-    {items.map((item, index) => (
-      <MenuItem key={index} {...item} />
-    ))}
-  </ul>
-);
+const Menu = ({ itemIds, itemsById }) => {
+  return (
+    <ul>
+      {itemIds.map((id) => (
+        <MenuItem key={id} itemId={id} itemsById={itemsById} />
+      ))}
+    </ul>
+  );
+}
 
-const MenuItem = ({ text, href, children }) => {
+const MenuItem = ({ itemId, itemsById }) => {
+  const item = itemsById[itemId];
+
   // break condition: stop recursion if item does NOT have children
-  if (!children) {
+  if (!item.children) {
     return (
       <li>
-        <a href={href}>{text}</a>
+        <a href={item.href}>{item.text}</a>
       </li>
     );
   }
@@ -407,12 +423,19 @@ const MenuItem = ({ text, href, children }) => {
   // creates recursively a submenu
   return (
     <li>
-      {text}
-      <Menu items={children} />
+      {item.text}
+      <Menu itemIds={item.children} itemsById={itemsById} />
     </li>
   );
 }
 
 // root component
-const NestedMenu = () => <Menu items={menuItems} />;
+const NestedMenu = () => {
+  const itemsById = menuItems.reduce(
+    (prev, item) => ({ ...prev, [item.id]: item }),
+    {}
+  );
+  const rootIds = menuItems.filter(({ isRoot }) => isRoot).map(({ id }) => id);
+  return <Menu itemIds={rootIds} itemsById={itemsById} />;
+}
 ```
