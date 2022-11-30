@@ -1,10 +1,16 @@
 # Data Structures and Algorithms
 
+## Data Structures
+
+> Overview Article with Examples: <https://profy.dev/article/javascript-data-structures>
+
+## Algorithms
+
 - `algorithm` is a sequence of steps to get your desired output from a given input
 - more complex programs may require more sophisticated data storage solutions and computation logic
 - in addition, you must be able to think logically as a programmer - get a `problem solving` attitude
 
-## Measure Time for Executing
+### Measure Time for Executing
 
 - `Big O Notation`: expressed in a generalized form (NOT in time units but in mathematical terms)
 - `Example`: look below at algorithms
@@ -27,7 +33,7 @@
 
 ![](/00_slides/53_logarithmic-time-complexity.png)
 
-## Example Algorithm
+### Example Algorithm
 
 ```TypeScript
 // Find minimum value in an array (-> data structure)
@@ -109,7 +115,7 @@ const sumUp = (numbers: number[]): number => {
 // Linear Time Comparison -> O(n)
 ```
 
-## Examples for Data Structures and Algorithm
+### Examples for Data Structures and Algorithm
 
 ```TypeScript
 const age = [1, 3];

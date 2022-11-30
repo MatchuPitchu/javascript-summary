@@ -350,3 +350,69 @@ const getFriendNames = (person) => {
 
 getFriendNames(network); // output: ['Pitchu', 'Julia', 'Mo', 'Mao']
 ```
+
+#### Example Recursion to Create a Menu in React
+
+```TSX
+const menuItems = [
+  {
+    text: "Menu 1",
+    children: [
+      {
+        text: "Menu 1 1",
+        href: "#11",
+      }
+    ],
+  },
+  {
+    text: "Menu 2",
+    href: "#2",
+  },
+  {
+    text: "Menu 3",
+    children: [
+      {
+        text: "Menu 3 1",
+        children: [
+          {
+            id: "311",
+            text: "Menu 3 1 1",
+            href: "#311",
+          },
+        ],
+      },
+    ],
+  },
+];
+
+// Menu and MenuItem are recursively calling each other
+const Menu = ({ items }) => (
+  <ul>
+    {items.map((item, index) => (
+      <MenuItem key={index} {...item} />
+    ))}
+  </ul>
+);
+
+const MenuItem = ({ text, href, children }) => {
+  // break condition: stop recursion if item does NOT have children
+  if (!children) {
+    return (
+      <li>
+        <a href={href}>{text}</a>
+      </li>
+    );
+  }
+
+  // creates recursively a submenu
+  return (
+    <li>
+      {text}
+      <Menu items={children} />
+    </li>
+  );
+}
+
+// root component
+const NestedMenu = () => <Menu items={menuItems} />;
+```
