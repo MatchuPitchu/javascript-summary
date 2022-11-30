@@ -68,3 +68,101 @@ for (const value of personData.values()) {
   - similar idea with `garbage collection` as for `WeakSet`
   - created with `new WeakMap()`
   - only provides methods `get`, `has`, `delete`, `set`
+
+## Example with Map in React
+
+- keeping track of selected items (-> checkboxes) of user
+- user clicks: add item to `Set` or remove item from `Set`
+
+```TSX
+const messages = [
+  {
+    id: "msg-1",
+    text: "hello",
+    userId: "1"
+  },
+  {
+    id: "msg-2",
+    text: "world",
+    userId: "2"
+  },
+  {
+    id: "msg-3",
+    text: "it\'s me",
+    userId: "1"
+  },
+  // ...
+];
+
+const users = [
+  { id: "1", name: "Matchu" },
+  { id: "2", name: "Pitchu" },
+];
+
+export const ChatUsingMap = () => {
+  const transformedUsersArray = users.map(({ id, name }) => [id, name])
+  const namesById = new Map(transformedUsersArray);
+
+  return messages.map(({ id, text, userId }) => (
+    <div key={id}>
+      <div>{text}</div>
+      <div>{namesById.get(userId)}</div> {/* -> Matchu, Pitchu or ... */}
+    </div>
+  ));
+}
+```
+
+## Example with Set in React
+
+- keeping track of selected items (-> checkboxes) of user
+- user clicks: add item to `Set` or remove item from `Set`
+
+```TSX
+const rows = [
+  { id: "1", name: "Row 1" },
+  { id: "2", name: "Row 2" },
+  // ...
+];
+
+export const TableUsingSet = () => {
+  const [selectedIds, setSelectedIds] = useState(new Set());
+
+  const handleOnChange = (id) => {
+    const updatedIdToSelected = new Set(selectedIds);
+    if (updatedIdToSelected.has(id)) {
+      updatedIdToSelected.delete(id);
+    } else {
+      updatedIdToSelected.add(id);
+    }
+    setSelectedIds(updatedIdToSelected);
+  };
+
+  return (
+    <table>
+      <thead>
+        <tr>
+          <th />
+          <th>ID</th>
+          <th>Name</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {rows.map(({ id, name }) => (
+          <tr key={id}>
+            <td>
+              <input
+                type="checkbox"
+                checked={selectedIds.has(id)}
+                onChange={() => handleOnChange(id)}
+              />
+            </td>
+            <td>{id}</td>
+            <td>{name}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+}
+```
