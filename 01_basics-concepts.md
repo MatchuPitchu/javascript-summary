@@ -751,10 +751,10 @@ const company = {
 
 let it = company.getEmployee();
 
-console.log(it.next());
-console.log(it.next());
-console.log(it.next());
-console.log(it.next());
+console.log(it.next()); // { value: 'Matchu', done: false }
+console.log(it.next()); // { value: 'Pitchu', done: false }
+console.log(it.next()); // { value: 'Bio', done: false }
+console.log(it.next()); // { value: undefined, done: true }
 
 // [2] With Symbol.iterator to create an object that's iterable by loops
 const company = {
@@ -774,6 +774,23 @@ for (const employee of company) {
 }
 
 const companyCopy = [...company]; // spread operator works with Symbol.iterator
+```
+
+#### Example Generator Function to generate new id
+
+```typescript
+function* generateId() {
+  let id = 1;
+  while (true) {
+    yield id;
+    id++;
+  }
+}
+
+const generatorObj = generateId();
+const { value: id1 } = generatorObj.next();
+const { value: id2 } = generatorObj.next();
+// ...
 ```
 
 ### Reflect API
